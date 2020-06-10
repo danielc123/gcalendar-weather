@@ -1,0 +1,89 @@
+Installation instructions
+
+MacOS Mojave
+============
+
+# Install Python 3
+brew install python
+
+# Install Dark Sky library
+pip install darkskylib
+
+# Install Pygame
+pip install -U pygame==2.0.0.dev6
+
+
+#Install Google Calendar libraries
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+pip install schedule requests
+
+
+# Run Weather
+python weather.py
+
+
+
+
+Lichee Zero Pi
+==============
+
+Note. Lichee Zero Pi default is Python2
+
+# Install Python 3 - This installs python 3.4 and there is no way to upgrade it through apt
+# sudo apt-get install python3
+# sudo apt-get install python3-pip
+
+
+# Install Python 3.5.2 from sources
+sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libsqlite3-dev
+sudo apt-get install libc6-dev
+sudo apt-get install libncurses5-dev libncursesw5-dev libreadline6-dev
+sudo apt-get install libdb5.3-dev libgdbm-dev
+sudo apt-get install libexpat1-dev liblzma-dev
+wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz
+tar -xvf Python-3.5.2.tar.xz
+cd Python-3.5.2
+./configure
+make -j -l 4
+sudo make install
+
+
+# Install Python 3.6.5 from sources
+sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libsqlite3-dev
+sudo apt-get install libc6-dev
+sudo apt-get install libncurses5-dev libncursesw5-dev libreadline6-dev
+sudo apt-get install libdb5.3-dev libgdbm-dev
+sudo apt-get install libexpat1-dev liblzma-dev
+wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tar.xz
+tar xf Python-3.6.5.tar.xz
+cd Python-3.6.5
+./configure --enable-optimizations
+make -j -l 4
+sudo make altinstall
+
+
+# Creating alias for python command line
+echo "alias python=/usr/local/bin/python3.5" >> ~/.bashrc
+echo "alias pip=/usr/local/bin/pip3.5" >> ~/.bashrc
+
+# Install Dark Sky library
+pip3 install darkskylib
+
+
+# Install Pygame
+sudo apt-get install libsdl1.2-dev
+sudo apt install libfreetype6-dev
+sudo apt-get install python3-dev mercurial
+sudo apt-get install libsdl-image1.2-dev libsdl2-dev libsdl-ttf2.0-dev
+sudo apt-get install libsdl-mixer1.2-dev libportmidi-dev
+sudo apt-get install python-numpy
+pip3 install pygame==1.9.3
+
+
+#Install Google Calendar libraries
+pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+pip3 install schedule requests
+
+
+# Run Weather
+python3 weather.py
