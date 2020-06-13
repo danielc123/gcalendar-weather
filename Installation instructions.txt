@@ -34,12 +34,14 @@ Note. Lichee Zero Pi default is Python2
 # sudo apt-get install python3-pip
 
 
-# Install Python 3.5.2 from sources
+# Install Python dependencies
 sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libsqlite3-dev
 sudo apt-get install libc6-dev
 sudo apt-get install libncurses5-dev libncursesw5-dev libreadline6-dev
 sudo apt-get install libdb5.3-dev libgdbm-dev
 sudo apt-get install libexpat1-dev liblzma-dev
+
+# Install Python 3.5 from sources
 wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz
 tar -xvf Python-3.5.2.tar.xz
 cd Python-3.5.2
@@ -49,11 +51,6 @@ sudo make install
 
 
 # Install Python 3.6.5 from sources
-sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libsqlite3-dev
-sudo apt-get install libc6-dev
-sudo apt-get install libncurses5-dev libncursesw5-dev libreadline6-dev
-sudo apt-get install libdb5.3-dev libgdbm-dev
-sudo apt-get install libexpat1-dev liblzma-dev
 wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tar.xz
 tar xf Python-3.6.5.tar.xz
 cd Python-3.6.5

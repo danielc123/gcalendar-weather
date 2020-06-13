@@ -43,6 +43,8 @@ import signal
 import sys
 import syslog
 import time
+import calendar
+import schedule
 
 # third party imports
 from darksky import forecast
@@ -52,6 +54,21 @@ import requests
 
 # local imports
 import config
+
+# google calendar needed
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+# If modifying these scopes, delete the file token.pickle
+SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+
+# setup GPIO pin
+#import LPi.GPIO as GPIO
+#GPIO.setmode( GPIO.BOARD )
+#GPIO.setup( 6, GPIO.IN )    # Next 
+##GPIO.setup( 17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN )    # Shutdown
 
 # globals
 MODE = 'd'  # Default to weather mode.
@@ -328,8 +345,8 @@ class MyDisplay:
         return True
 
     def display_conditions_line(self, label, cond, is_temp, multiplier=None):
-        y_start_position = 0.17
-        line_spacing_gap = 0.065
+        y_start_position = 0.17     #start position
+        line_spacing_gap = 0.065    #line spacing
         conditions_text_height = 0.05
         degree_symbol_height = 0.03
         degree_symbol_y_offset = 0.001
@@ -529,7 +546,7 @@ class MyDisplay:
         text_color = (255, 255, 255)
         font_name = "freesans"
 
-        self.draw_screen_border(line_color, xmin, lines)
+        #self.draw_screen_border(line_color, xmin, lines)
         self.disp_time_date(font_name, text_color)
         self.disp_current_temp(font_name, text_color)
         self.disp_summary()
