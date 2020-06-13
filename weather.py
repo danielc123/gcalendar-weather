@@ -28,12 +28,13 @@
 
 """ Fetches weather reports from Dark Sky for displaying on a screen. """
 
-__version__ = "0.0.12"
+__version__ = "0.0.2"
 
 ###############################################################################
-#   Raspberry Pi Weather Display
+#   Raspberry Pi & Lichee Zero Pi: Calendar and Weather Display
 #   Original By: Jim Kemp          10/25/2014
 #   Modified By: Gene Liverman    12/30/2017 & multiple times since
+#   Mooified By: Daniel C.        10/06/2020
 ###############################################################################
 # standard imports
 import datetime
