@@ -486,8 +486,8 @@ class MyDisplay:
     def disp_weather(self):
         # Fill the screen with black
         self.screen.fill((0, 0, 0))
-        xmin = 10
-        lines = 5
+        xmin = self.window_division_x
+        lines = 2
         line_color = (255, 255, 255)
         text_color = (255, 255, 255)
         font_name = "freesans"
@@ -543,8 +543,8 @@ class MyDisplay:
     def disp_hourly(self):
         # Fill the screen with black
         self.screen.fill((0, 0, 0))
-        xmin = 10
-        lines = 5
+        xmin = self.window_division_x
+        lines = 2
         line_color = (255, 255, 255)
         text_color = (255, 255, 255)
         font_name = "freesans"
@@ -671,7 +671,6 @@ class MyDisplay:
                          (full_date_string_x_position, rendered_time_y -15) )
 
     def draw_screen_border(self, line_color, xmin, lines):
-
         # Draw Screen Border
         # Draw Weather Forecast Sub divisions: height 25% | 75%/4 | 75%/4 | 75%/4 | 75%/4
         pygame.draw.line( self.screen, line_color, (self.xmax*xmin,self.ymax*0.25),
@@ -682,37 +681,6 @@ class MyDisplay:
                             (self.xmax,self.ymax*0.6250), lines )    # 2nd W Forecast
         pygame.draw.line( self.screen, line_color, (self.xmax*xmin,self.ymax*0.8125),
                             (self.xmax,self.ymax*0.8125), lines )    # 3rd W Forecast
-
-        # Top
-        #pygame.draw.line(self.screen, line_color, (xmin, 0), (self.xmax, 0),
-        #                lines)
-        # Left
-        #pygame.draw.line(self.screen, line_color, (xmin, 0),
-        #               (xmin, self.ymax), lines)
-        # Bottom
-        #pygame.draw.line(self.screen, line_color, (xmin, self.ymax),
-        #              (self.xmax, self.ymax), lines)
-        # Right
-        #pygame.draw.line(self.screen, line_color, (self.xmax, 0),
-        #                 (self.xmax, self.ymax + 2), lines)
-        # Bottom of top box
-        #pygame.draw.line(self.screen, line_color, (xmin, self.ymax * 0.15),
-        #                 (self.xmax, self.ymax * 0.15), lines)
-        # Bottom of middle box
-        #pygame.draw.line(self.screen, line_color, (xmin, self.ymax * 0.5),
-        #                 (self.xmax, self.ymax * 0.5), lines)
-        # Bottom row, left vertical
-        #pygame.draw.line(self.screen, line_color, (self.xmax * 0.25,
-        #                                           self.ymax * 0.5),
-        #                 (self.xmax * 0.25, self.ymax), lines)
-        # Bottom row, center vertical
-        #pygame.draw.line(self.screen, line_color, (self.xmax * 0.5,
-        #                                           self.ymax * 0.15),
-        #                 (self.xmax * 0.5, self.ymax), lines)
-        # Bottom row, right vertical
-        #pygame.draw.line(self.screen, line_color, (self.xmax * 0.75,
-        #                                           self.ymax * 0.5),
-        #                 (self.xmax * 0.75, self.ymax), lines)
 
     ####################################################################
     def sPrint(self, text, font, x, line_number, text_color):
@@ -725,7 +693,7 @@ class MyDisplay:
         # Fill the screen with black
         self.screen.fill((0, 0, 0))
         xmin = 10
-        lines = 5
+        lines = 2
         line_color = (0, 0, 0)
         text_color = (255, 255, 255)
         font_name = "freesans"
