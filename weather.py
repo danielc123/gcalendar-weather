@@ -56,7 +56,7 @@ import requests
 # local imports
 import config
 
-# google calendar needed
+# google calendar imports
 import pickle
 import os.path
 from googleapiclient.discovery import build
