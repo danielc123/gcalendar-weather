@@ -276,10 +276,12 @@ class MyDisplay:
             self.ymax = 320 - 5
             self.icon_size = '64'
         self.subwindow_text_height = 0.055
-        self.time_date_text_height = 0.115
-        self.time_date_small_text_height = 0.075
-        self.time_date_y_position = 8
-        self.time_date_small_y_position = 18
+        self.time_text_height = 0.30       #0.115
+        self.time_seconds_text_height = 0.15
+        self.date_text_height =  0.075
+        self.window_division_x = 0.72       # screen vertical division between calendar and weather from left
+        self.time_y_position = -3
+        self.time_seconds_y_position = 12
 
         self.last_update_check = 0
 
