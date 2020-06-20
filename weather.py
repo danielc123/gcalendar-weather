@@ -47,6 +47,10 @@ import time
 import calendar
 import schedule
 
+#Localization imports
+import locale
+from strings_defs import * # strings dictionary
+
 # third party imports
 from darksky import forecast
 import pygame
@@ -76,6 +80,8 @@ MODE = 'd'  # Default to weather mode.
 MOUSE_X, MOUSE_Y = 0, 0
 UNICODE_DEGREE = u'\xb0'
 
+if config.LANG == 'es':
+    locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8') # this set date and time in local format
 
 def exit_gracefully(signum, frame):
     sys.exit(0)
