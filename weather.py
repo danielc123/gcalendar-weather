@@ -700,7 +700,7 @@ class MyDisplay:
         self.screen.fill((0, 0, 0))
         xmin = 10
         lines = 2
-        line_color = (0, 0, 0)
+        line_color = (0, 0, 0)      #black lines to hide them
         text_color = (255, 255, 255)
         font_name = "freesans"
 
