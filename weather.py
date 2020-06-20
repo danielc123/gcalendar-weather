@@ -717,41 +717,54 @@ class MyDisplay:
                          (xmin, self.ymax * 0.15),
                          (self.xmax, self.ymax * 0.15), lines)
 
-        time_height_large = self.time_date_text_height
-        time_height_small = self.time_date_small_text_height
+        time_height = self.time_text_height
+        time_secs_height = self.time_seconds_text_height
+        date_height = self.date_text_height
 
         # Time & Date
-        regular_font = pygame.font.SysFont(
-            font_name, int(self.ymax * time_height_large), bold=1)
-        small_font = pygame.font.SysFont(
-            font_name, int(self.ymax * time_height_small), bold=1)
+        time_font = pygame.font.SysFont(
+            font_name, int(self.ymax * time_height), bold=0)
+        time_seconds_font = pygame.font.SysFont(
+            font_name, int(self.ymax * time_secs_height), bold=0)
+        date_font = pygame.font.SysFont(
+            font_name, int(self.ymax * date_height), bold=0)
 
-        hours_and_minites = time.strftime("%I:%M", time.localtime())
-        am_pm = time.strftime(" %p", time.localtime())
+        time_string = time.strftime("%H:%M", time.localtime())
+        secs_string = time.strftime("%S", time.localtime())
+        date_string = time.strftime("%A, %d %B", time.localtime()).title()
 
-        rendered_hours_and_minutes = regular_font.render(
-            hours_and_minites, True, text_color)
-        (tx1, ty1) = rendered_hours_and_minutes.get_size()
-        rendered_am_pm = small_font.render(am_pm, True, text_color)
-        (tx2, ty2) = rendered_am_pm.get_size()
+        rendered_time_string = time_font.render(time_string, True,
+                                                     text_color)
+        (rendered_time_x, rendered_time_y) = rendered_time_string.get_size()
+        rendered_secs_string = time_seconds_font.render(secs_string, True,
+                                                  text_color)
+        (rendered_secs_x, rendered_secs_y) = rendered_secs_string.get_size()
+        rendered_date_string = date_font.render(date_string, True,
+                                                   text_color)
+        (rendered_date_x, rendered_date_y) = rendered_date_string.get_size()
 
-        tp = self.xmax / 2 - (tx1 + tx2) / 2
-        self.screen.blit(rendered_hours_and_minutes,
-                         (tp, self.time_date_y_position))
-        self.screen.blit(rendered_am_pm,
-                         (tp + tx1 + 3, self.time_date_small_y_position))
+        full_time_string_x_position = ( self.xmax * self.window_division_x ) / 2 - (rendered_time_x+ 2*rendered_secs_y/1.4) / 2
+        self.screen.blit(rendered_time_string, (full_time_string_x_position,
+                                                self.time_y_position))
+        self.screen.blit(rendered_secs_string,
+                         (full_time_string_x_position + rendered_time_x + 3,
+                          self.time_seconds_y_position))
+        full_date_string_x_position = self.xmax / 2 + full_time_string_x_position / 2 + (rendered_time_x+ 2*rendered_secs_y/1.4) / 2 - rendered_date_x / 2  
+        self.screen.blit(rendered_date_string,
+                         (full_date_string_x_position, self.time_y_position + 0.84 * (rendered_time_y - rendered_date_y) ) )
 
-        self.sPrint("A weather rock powered by Dark Sky", small_font,
+
+        self.sPrint("A weather rock powered by Dark Sky", date_font,
                     self.xmax * 0.05, 3, text_color)
 
         self.sPrint("Sunrise: %s" % self.sunrise_string,
-                    small_font, self.xmax * 0.05, 4, text_color)
+                    date_font, self.xmax * 0.05, 4, text_color)
 
         self.sPrint("Sunset:  %s" % self.sunset_string,
-                    small_font, self.xmax * 0.05, 5, text_color)
+                    date_font, self.xmax * 0.05, 5, text_color)
 
         text = "Daylight: %d hrs %02d min" % (day_hrs, day_mins)
-        self.sPrint(text, small_font, self.xmax * 0.05, 6, text_color)
+        self.sPrint(text, date_font, self.xmax * 0.05, 6, text_color)
 
         # leaving row 7 blank
 
@@ -759,17 +772,17 @@ class MyDisplay:
             text = "Sunset in %d hrs %02d min" % stot(delta_seconds_til_dark)
         else:
             text = "Sunrise in %d hrs %02d min" % stot(seconds_til_daylight)
-        self.sPrint(text, small_font, self.xmax * 0.05, 8, text_color)
+        self.sPrint(text, date_font, self.xmax * 0.05, 8, text_color)
 
         # leaving row 9 blank
 
         text = "Weather checked at"
-        self.sPrint(text, small_font, self.xmax * 0.05, 10, text_color)
+        self.sPrint(text, date_font, self.xmax * 0.05, 10, text_color)
 
         text = "    %s" % time.strftime(
-            "%I:%M:%S %p %Z on %a. %d %b %Y ",
+            "%H:%M:%S %Z on %a. %d %b %Y ",
             time.localtime(self.last_update_check))
-        self.sPrint(text, small_font, self.xmax * 0.05, 11, text_color)
+        self.sPrint(text, date_font, self.xmax * 0.05, 11, text_color)
 
         # Update the display
         pygame.display.update()
