@@ -723,11 +723,11 @@ class MyDisplay:
 
         # Time & Date
         time_font = pygame.font.SysFont(
-            font_name, int(self.ymax * time_height), bold=0)
+            font_name, int(self.ymax * time_height), bold=1)
         time_seconds_font = pygame.font.SysFont(
-            font_name, int(self.ymax * time_secs_height), bold=0)
+            font_name, int(self.ymax * time_secs_height), bold=1)
         date_font = pygame.font.SysFont(
-            font_name, int(self.ymax * date_height), bold=0)
+            font_name, int(self.ymax * date_height), bold=1)
 
         time_string = time.strftime("%H:%M", time.localtime())
         secs_string = time.strftime("%S", time.localtime())
@@ -759,17 +759,18 @@ class MyDisplay:
         #                 (full_date_string_x_position, self.time_y_position + 0.84 * (rendered_time_y - rendered_date_y) ) )
         gapy = 4
 
+        # Info
         self.sPrint("A weather rock powered by Dark Sky", date_font,
-                    self.xmax * 0.05, 3, text_color)
+                    self.xmax * 0.05, 5, text_color)
 
         self.sPrint("Sunrise: %s" % self.sunrise_string,
-                    date_font, self.xmax * 0.05, 4, text_color)
+                    date_font, self.xmax * 0.05, 6, text_color)
 
         self.sPrint("Sunset:  %s" % self.sunset_string,
-                    date_font, self.xmax * 0.05, 5, text_color)
+                    date_font, self.xmax * 0.05, 7, text_color)
 
         text = "Daylight: %d hrs %02d min" % (day_hrs, day_mins)
-        self.sPrint(text, date_font, self.xmax * 0.05, 6, text_color)
+        self.sPrint(text, date_font, self.xmax * 0.05, 8, text_color)
 
         # leaving row 7 blank
 
@@ -777,7 +778,7 @@ class MyDisplay:
             text = "Sunset in %d hrs %02d min" % stot(delta_seconds_til_dark)
         else:
             text = "Sunrise in %d hrs %02d min" % stot(seconds_til_daylight)
-        self.sPrint(text, date_font, self.xmax * 0.05, 8, text_color)
+        self.sPrint(text, date_font, self.xmax * 0.05, 9, text_color)
 
         # leaving row 9 blank
 
