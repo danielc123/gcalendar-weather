@@ -749,10 +749,15 @@ class MyDisplay:
         self.screen.blit(rendered_secs_string,
                          (full_time_string_x_position + rendered_time_x + 3,
                           self.time_seconds_y_position))
-        full_date_string_x_position = self.xmax / 2 + full_time_string_x_position / 2 + (rendered_time_x+ 2*rendered_secs_y/1.4) / 2 - rendered_date_x / 2  
-        self.screen.blit(rendered_date_string,
-                         (full_date_string_x_position, self.time_y_position + 0.84 * (rendered_time_y - rendered_date_y) ) )
 
+        full_date_string_x_position = self.xmax * self.window_division_x / 2 - rendered_date_x / 2
+        self.screen.blit(rendered_date_string,
+                         (full_date_string_x_position, rendered_time_y -15) )
+        # Date located to the time right
+        #full_date_string_x_position = self.xmax / 2 + full_time_string_x_position / 2 + (rendered_time_x+ 2*rendered_secs_y/1.4) / 2 - rendered_date_x / 2  
+        #self.screen.blit(rendered_date_string,
+        #                 (full_date_string_x_position, self.time_y_position + 0.84 * (rendered_time_y - rendered_date_y) ) )
+        gapy = 4
 
         self.sPrint("A weather rock powered by Dark Sky", date_font,
                     self.xmax * 0.05, 3, text_color)
