@@ -621,25 +621,29 @@ class MyDisplay:
     def disp_current_temp(self, font_name, text_color):
         # Outside Temp
         outside_temp_font = pygame.font.SysFont(
-            font_name, int(self.ymax * (0.5 - 0.15) * 0.6), bold=1)
-        txt = outside_temp_font.render(
+            font_name, int(self.ymax * (0.2125)), bold=0)
+        temp_txt = outside_temp_font.render(
             str(int(round(self.weather.temperature))), True, text_color)
-        (txt_x, txt_y) = txt.get_size()
+        (rendered_temp_txt_x, rendered_temp_txt_y) = temp_txt.get_size()
         degree_font = pygame.font.SysFont(
-            font_name, int(self.ymax * (0.5 - 0.15) * 0.3), bold=1)
+            font_name, int(self.ymax * (0.2125) * 0.5), bold=0)
         degree_txt = degree_font.render(UNICODE_DEGREE, True, text_color)
-        (rendered_am_pm_x, rendered_am_pm_y) = degree_txt.get_size()
-        degree_letter = outside_temp_font.render(get_temperature_letter(),
+        (rendered_degree_x, rendered_degree_y) = degree_txt.get_size()
+        degree_letter = degree_font.render(get_temperature_letter(),
                                                  True, text_color)
-        (degree_letter_x, degree_letter_y) = degree_letter.get_size()
+        (rendered_dletter_x, rendered_dletter_y) = degree_letter.get_size()
+        
         # Position text
-        x = self.xmax * 0.27 - (txt_x * 1.02 + rendered_am_pm_x +
-                                degree_letter_x) / 2
-        self.screen.blit(txt, (x, self.ymax * 0.20))
-        x = x + (txt_x * 1.02)
-        self.screen.blit(degree_txt, (x, self.ymax * 0.2))
-        x = x + (rendered_am_pm_x * 1.02)
-        self.screen.blit(degree_letter, (x, self.ymax * 0.2))
+        #x = self.xmax * 0.27 - (rendered_temp_txt_x * 1.02 + rendered_degree_x +
+        #                        rendered_dletter_x) / 2
+        x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_temp_txt_x * 0.95
+             + rendered_degree_x * 0.70 + rendered_dletter_x) / 2
+        y = ( self.ymax *  0.25 - rendered_temp_txt_y ) / 2
+        self.screen.blit(temp_txt, (x, y ))
+        x = x + (rendered_temp_txt_x * 0.95)
+        self.screen.blit(degree_txt, (x, y + 12))
+        x = x + (rendered_degree_x * 0.70)
+        self.screen.blit(degree_letter, (x, y + 12))
 
     def disp_time_date(self, font_name, text_color):
         # Time & Date
@@ -723,11 +727,11 @@ class MyDisplay:
 
         # Time & Date
         time_font = pygame.font.SysFont(
-            font_name, int(self.ymax * time_height), bold=1)
+            font_name, int(self.ymax * time_height), bold=0)
         time_seconds_font = pygame.font.SysFont(
-            font_name, int(self.ymax * time_secs_height), bold=1)
+            font_name, int(self.ymax * time_secs_height), bold=0)
         date_font = pygame.font.SysFont(
-            font_name, int(self.ymax * date_height), bold=1)
+            font_name, int(self.ymax * date_height), bold=0)
 
         time_string = time.strftime("%H:%M", time.localtime())
         secs_string = time.strftime("%S", time.localtime())
@@ -757,8 +761,7 @@ class MyDisplay:
         #full_date_string_x_position = self.xmax / 2 + full_time_string_x_position / 2 + (rendered_time_x+ 2*rendered_secs_y/1.4) / 2 - rendered_date_x / 2  
         #self.screen.blit(rendered_date_string,
         #                 (full_date_string_x_position, self.time_y_position + 0.84 * (rendered_time_y - rendered_date_y) ) )
-        gapy = 4
-
+       
         # Info
         self.sPrint("A weather rock powered by Dark Sky", date_font,
                     self.xmax * 0.05, 5, text_color)
