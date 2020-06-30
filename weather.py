@@ -469,11 +469,13 @@ class MyDisplay:
         font_name = "freesans"
 
         conditions_font = pygame.font.SysFont(
-            font_name, int(self.ymax * conditions_text_height), bold=1)
+            font_name, int(self.ymax * conditions_text_height), bold=0)
         txt = conditions_font.render(self.weather.summary, True, text_color)
-        txt_x = txt.get_size()[0]
-        x = self.xmax * 0.27 - (txt_x * 1.02) / 2
-        self.screen.blit(txt, (x, self.ymax * y_start_position))
+        (rendered_txt_x, rendered_txt_y) = txt.get_size()
+        #x = self.xmax * 0.27 - (txt_x * 1.02) / 2
+        x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_txt_x * 0.95 ) / 2
+        y = ( self.ymax * ( 0.25 + 0.1875) - rendered_txt_y ) / 2
+        self.screen.blit(txt, (x, y))
 
     def disp_umbrella_info(self, umbrella_txt):
         x_start_position = 0.52
