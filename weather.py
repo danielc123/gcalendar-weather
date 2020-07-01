@@ -399,8 +399,8 @@ class MyDisplay:
 
     def display_subwindow(self, data, day, c_times):
         subwindow_centers = 0.125
-        subwindows_y_start_position = 0.530
-        line_spacing_gap = 0.065
+        subwindows_y_start_position = 0.250 + 0.1875/2  # Sub windows Y axis center
+        line_spacing_gap = 0.1875 /2                    # Vertical spacing between Windows
         rain_percent_line_offset = 5.95
         rain_present_text_height = 0.060
         text_color = (255, 255, 255)
@@ -413,10 +413,9 @@ class MyDisplay:
 
         txt = forecast_font.render(day, True, text_color)
         (txt_x, txt_y) = txt.get_size()
-        self.screen.blit(txt, (self.xmax *
-                               (subwindow_centers * c_times) - txt_x / 2,
-                               self.ymax * (subwindows_y_start_position +
-                                            line_spacing_gap * 0)))
+        self.screen.blit(txt, (self.xmax * self.window_division_x,
+                               self.ymax * (subwindows_y_start_position + (c_times-1) *
+                                            line_spacing_gap ) - txt_y/2))
         if hasattr(data, 'temperatureLow'):
             txt = forecast_font.render(
                 str(int(round(data.temperatureLow))) +
