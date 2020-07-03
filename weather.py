@@ -639,7 +639,7 @@ class MyDisplay:
         #                        rendered_dletter_x) / 2
         x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_temp_txt_x * 0.95
              + rendered_degree_x * 0.70 + rendered_dletter_x) / 2
-        y = ( self.ymax *  0.25 - rendered_temp_txt_y ) / 2
+        y = ( self.ymax *  0.25 - rendered_temp_txt_y - 24) / 2
         self.screen.blit(temp_txt, (x, y ))
         x = x + (rendered_temp_txt_x * 0.95)
         self.screen.blit(degree_txt, (x, y + 12))
