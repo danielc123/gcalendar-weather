@@ -470,13 +470,9 @@ class MyDisplay:
         else:
             icon_y_offset = config.LARGE_ICON_OFFSET
 
-        self.screen.blit(icon, (self.xmax *
-                                (subwindow_centers * c_times) -
-                                icon_size_x / 2,
-                                self.ymax *
-                                (subwindows_y_start_position +
-                                 line_spacing_gap
-                                 * 1.2) + icon_y_offset))
+        self.screen.blit(icon, ((self.xmax * (self.window_division_x + 1) + rendered_dayhour_txt_x 
+                                - max(rendered_temp_txt_x, rendered_temp_low_x) - rendered_degree_x)/2
+                                - icon_size_x/2 - 2, self.ymax * subwindow_y_center_pos - icon_size_y /2 ))
 
     def disp_summary(self):
         y_start_position = 0.444
@@ -489,8 +485,8 @@ class MyDisplay:
         txt = conditions_font.render(self.weather.summary, True, text_color)
         (rendered_txt_x, rendered_txt_y) = txt.get_size()
         #x = self.xmax * 0.27 - (txt_x * 1.02) / 2
-        x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_txt_x * 0.95 ) / 2
-        y = ( self.ymax * ( 0.25 + 0.1875) - rendered_txt_y ) / 2
+        x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_txt_x * 1.50 ) / 2
+        y = ( self.ymax * ( 0.25 + 0.1875) - rendered_txt_y * 1.50) / 2
         self.screen.blit(txt, (x, y))
 
     def disp_umbrella_info(self, umbrella_txt):
