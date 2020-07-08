@@ -271,8 +271,8 @@ class MyDisplay:
         #        print(fontname)
 
         if config.FULLSCREEN:
-            self.xmax = pygame.display.Info().current_w - 35
-            self.ymax = pygame.display.Info().current_h - 5
+            self.xmax = pygame.display.Info().current_w #- 35
+            self.ymax = pygame.display.Info().current_h #- 5
             if self.xmax <= 1024:
                 self.icon_size = '64'
             else:
