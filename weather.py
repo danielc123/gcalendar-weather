@@ -410,45 +410,58 @@ class MyDisplay:
         subwindow_y_upper_pos = subwindow_y_center_pos - line_spacing_gap /2
         subwindow_y_lower_pos = subwindow_y_center_pos + line_spacing_gap /2 - 0.03125
 
+        # Day
         forecast_font = pygame.font.SysFont(
-            font_name, int(self.ymax * self.subwindow_text_height), bold=1)
+            font_name, int(self.ymax * self.subwindow_text_height), bold=0)
         rpfont = pygame.font.SysFont(
-            font_name, int(self.ymax * rain_present_text_height), bold=1)
+            font_name, int(self.ymax * rain_present_text_height), bold=0)
+        day_hour_temp_font = pygame.font.SysFont(
+            font_name, int(self.ymax * self.subwindow_text_height*1.3), bold=0)
+        degree_font = pygame.font.SysFont(
+            font_name, int(self.ymax * self.subwindow_text_height * 1.3* 0.5), bold=0)
+        
+        dayhour_txt = forecast_font.render(day, True, text_color)
+        (rendered_dayhour_txt_x, rendered_dayhour_txt_y) = dayhour_txt.get_size()
+        #Display day
+        self.screen.blit(dayhour_txt, (self.xmax * self.window_division_x,
+                               self.ymax * subwindow_y_center_pos - rendered_dayhour_txt_y/2))
+        degree_txt = degree_font.render(UNICODE_DEGREE+get_temperature_letter(), True, text_color)
+        (rendered_degree_x, rendered_degree_y) = degree_txt.get_size()
 
-        txt = forecast_font.render(day, True, text_color)
-        (txt_x, txt_y) = txt.get_size()
-        self.screen.blit(txt, (self.xmax * self.window_division_x,
-                               self.ymax * (subwindows_y_start_position + (c_times-1) *
-                                            line_spacing_gap ) - txt_y/2))
+        # Display day temp or hour temp
         if hasattr(data, 'temperatureLow'):
-            txt = forecast_font.render(
-                str(int(round(data.temperatureLow))) +
-                UNICODE_DEGREE +
-                ' / ' +
-                str(int(round(data.temperatureHigh))) +
-                UNICODE_DEGREE + get_temperature_letter(),
-                True, text_color)
+            temp_txt = day_hour_temp_font.render(
+                str(int(round(data.temperatureHigh))), True, text_color)
+            temp_low = day_hour_temp_font.render(
+                str(int(round(data.temperatureLow))), True, text_color)
+            (rendered_temp_txt_x, rendered_temp_txt_y) = temp_txt.get_size()
+            (rendered_temp_low_x, rendered_temp_low_y) = temp_low.get_size()
+            self.screen.blit(temp_txt, (self.xmax - rendered_temp_txt_x - rendered_degree_x ,
+                                   self.ymax * subwindow_y_upper_pos + rendered_temp_txt_y * 0.2 ))
+            self.screen.blit(degree_txt, (self.xmax - rendered_degree_x * 1.1 ,
+                                   self.ymax * subwindow_y_upper_pos + rendered_temp_txt_y * 0.2 +4 ))  
+            self.screen.blit(temp_low, (self.xmax - rendered_temp_low_x - rendered_degree_x ,
+                                   self.ymax * subwindow_y_lower_pos - rendered_temp_low_y * 0.5 ))
+            self.screen.blit(degree_txt, (self.xmax - rendered_degree_x * 1.1 ,
+                                   self.ymax * subwindow_y_lower_pos - rendered_temp_low_y * 0.5 +4)) 
         else:
-            txt = forecast_font.render(
-                str(int(round(data.temperature))) +
-                UNICODE_DEGREE + get_temperature_letter(),
-                True, text_color)
-        (txt_x, txt_y) = txt.get_size()
-        self.screen.blit(txt, (self.xmax *
-                               (subwindow_centers * c_times) - txt_x / 2,
-                               self.ymax * (subwindows_y_start_position +
-                                            line_spacing_gap * 5)))
+            rendered_temp_low_x = 0
+            temp_txt = day_hour_temp_font.render(
+                str(int(round(data.temperature))), True, text_color)
+            (rendered_temp_txt_x, rendered_temp_txt_y) = temp_txt.get_size()
+            self.screen.blit(temp_txt, (self.xmax - rendered_temp_txt_x - rendered_degree_x ,
+                                   self.ymax * subwindow_y_center_pos - rendered_temp_txt_y /2 ))
+            self.screen.blit(degree_txt, (self.xmax - rendered_degree_x * 1.1 ,
+                                   self.ymax * subwindow_y_center_pos - rendered_temp_txt_y /2 +4 )) 
+
         # rtxt = forecast_font.render('Rain:', True, lc)
         # self.screen.blit(rtxt, (ro,self.ymax*(wy+gp*5)))
         rptxt = rpfont.render(
             str(int(round(data.precipProbability * 100))) + '%',
             True, text_color)
         (txt_x, txt_y) = rptxt.get_size()
-        self.screen.blit(rptxt, (self.xmax *
-                                 (subwindow_centers * c_times) - txt_x / 2,
-                                 self.ymax * (subwindows_y_start_position +
-                                              line_spacing_gap *
-                                              rain_percent_line_offset)))
+        self.screen.blit(rptxt, (self.xmax * self.window_division_x + 4 ,
+                                self.ymax * subwindow_y_lower_pos - txt_y/2 ))
         icon = pygame.image.load(
             icon_mapping(data.icon, self.icon_size)).convert_alpha()
         (icon_size_x, icon_size_y) = icon.get_size()
