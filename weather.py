@@ -546,7 +546,7 @@ class MyDisplay:
         # Today
         today = self.weather.daily[0]
         today_string = "Today"
-        multiplier = 1
+        multiplier = 0
         self.display_subwindow(today, today_string, multiplier)
 
         # counts from 0 to 2
@@ -554,7 +554,7 @@ class MyDisplay:
             this_day = self.weather.daily[future_day + 1]
             this_day_no = datetime.datetime.fromtimestamp(this_day.time)
             this_day_string = this_day_no.strftime("%A")
-            multiplier += 2
+            multiplier += 1
             self.display_subwindow(this_day, this_day_string, multiplier)
 
         # Update the display
@@ -611,7 +611,7 @@ class MyDisplay:
         this_hour_12_int = int(datetime.datetime.fromtimestamp(
             this_hour.time).strftime("%I"))
         this_hour_string = "{} {}".format(str(this_hour_12_int), ampm)
-        multiplier = 1
+        multiplier = 0
         self.display_subwindow(this_hour, this_hour_string, multiplier)
 
         # counts from 0 to 2
@@ -626,7 +626,7 @@ class MyDisplay:
             this_hour_12_int = int(datetime.datetime.fromtimestamp(
                 this_hour.time).strftime("%I"))
             this_hour_string = "{} {}".format(str(this_hour_12_int), ampm)
-            multiplier += 2
+            multiplier += 1
             self.display_subwindow(this_hour, this_hour_string, multiplier)
 
         # Update the display
