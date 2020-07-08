@@ -400,11 +400,15 @@ class MyDisplay:
     def display_subwindow(self, data, day, c_times):
         subwindow_centers = 0.125
         subwindows_y_start_position = 0.250 + 0.1875/2  # Sub windows Y axis center
-        line_spacing_gap = 0.1875 /2                    # Vertical spacing between Windows
+        line_spacing_gap = 0.1875                  # Vertical spacing between Windows
         rain_percent_line_offset = 5.95
         rain_present_text_height = 0.060
         text_color = (255, 255, 255)
         font_name = "freesans"
+
+        subwindow_y_center_pos = subwindows_y_start_position + c_times * line_spacing_gap
+        subwindow_y_upper_pos = subwindow_y_center_pos - line_spacing_gap /2
+        subwindow_y_lower_pos = subwindow_y_center_pos + line_spacing_gap /2 - 0.03125
 
         forecast_font = pygame.font.SysFont(
             font_name, int(self.ymax * self.subwindow_text_height), bold=1)
