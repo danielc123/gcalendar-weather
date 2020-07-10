@@ -499,24 +499,20 @@ class MyDisplay:
         self.disp_time_date(font_name, text_color)
         self.disp_current_temp(font_name, text_color)
         self.disp_summary()
-        self.display_conditions_line(
-            'Feels Like:', int(round(self.weather.apparentTemperature)),
-            True)
 
         try:
             wind_bearing = self.weather.windBearing
             wind_direction = deg_to_compass(wind_bearing) + ' @ '
         except AttributeError:
             wind_direction = ''
+        self.display_conditions_line(
+            'HR:', str(int(round((self.weather.humidity * 100)))) + '%',
+            False, 0)        
         wind_txt = wind_direction + str(
             int(round(self.weather.windSpeed))) + \
             ' ' + get_windspeed_abbreviation()
         self.display_conditions_line(
-            'Wind:', wind_txt, False, 1)
-
-        self.display_conditions_line(
-            'Humidity:', str(int(round((self.weather.humidity * 100)))) + '%',
-            False, 2)
+            '', wind_txt, False, 2.4)
 
         # Skipping multiplier 3 (line 4)
 
@@ -556,9 +552,9 @@ class MyDisplay:
         self.disp_time_date(font_name, text_color)
         self.disp_current_temp(font_name, text_color)
         self.disp_summary()
-        self.display_conditions_line(
-            'Feels Like:', int(round(self.weather.apparentTemperature)),
-            True)
+        #self.display_conditions_line(
+        #    'Feels Like:', int(round(self.weather.apparentTemperature)),
+        #    True)
 
         try:
             wind_bearing = self.weather.windBearing
