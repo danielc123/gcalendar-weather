@@ -468,7 +468,7 @@ class MyDisplay:
             font_name, int(self.ymax * conditions_text_height), bold=0)
         txt = conditions_font.render(self.weather.summary, True, text_color)
         (rendered_txt_x, rendered_txt_y) = txt.get_size()
-        x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_txt_x * 1.50 ) / 2
+        x = self.xmax * self.window_division_x * 1.01 #= self.xmax * (self.window_division_x + 1 ) /2 - (rendered_txt_x * 1.50 ) / 2
         y = ( self.ymax * y_start_position - rendered_txt_y * 1.50) / 2
         self.screen.blit(txt, (x, y))
 
@@ -627,10 +627,8 @@ class MyDisplay:
         (rendered_dletter_x, rendered_dletter_y) = degree_letter.get_size()
         
         # Position text
-        #x = self.xmax * 0.27 - (rendered_temp_txt_x * 1.02 + rendered_degree_x +
-        #                        rendered_dletter_x) / 2
-        x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_temp_txt_x * 0.95
-             + rendered_degree_x * 0.70 + rendered_dletter_x) / 2
+        x = self.xmax * self.window_division_x  #=self.xmax * (self.window_division_x + 1 ) /2 - (rendered_temp_txt_x * 0.95
+        #     + rendered_degree_x * 0.70 + rendered_dletter_x) / 2
         y = ( self.ymax *  0.25 - rendered_temp_txt_y - 24) / 2
         self.screen.blit(temp_txt, (x, y ))
         x = x + (rendered_temp_txt_x * 0.95)
