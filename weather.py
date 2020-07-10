@@ -401,7 +401,6 @@ class MyDisplay:
         subwindow_centers = 0.125
         subwindows_y_start_position = 0.250 + 0.1875/2  # Sub windows Y axis center
         line_spacing_gap = 0.1875                  # Vertical spacing between Windows
-        rain_percent_line_offset = 5.95
         rain_present_text_height = 0.060
         text_color = (255, 255, 255)
         font_name = "freesans"
@@ -410,7 +409,7 @@ class MyDisplay:
         subwindow_y_upper_pos = subwindow_y_center_pos - line_spacing_gap /2
         subwindow_y_lower_pos = subwindow_y_center_pos + line_spacing_gap /2 - 0.03125
 
-        # Day
+        # Day of week or time
         forecast_font = pygame.font.SysFont(
             font_name, int(self.ymax * self.subwindow_text_height), bold=0)
         rpfont = pygame.font.SysFont(
@@ -475,7 +474,7 @@ class MyDisplay:
                                 - icon_size_x/2 - 2, self.ymax * subwindow_y_center_pos - icon_size_y /2 ))
 
     def disp_summary(self):
-        y_start_position = 0.444
+        y_start_position =  0.25 + 0.1875
         conditions_text_height = 0.04
         text_color = (255, 255, 255)
         font_name = "freesans"
@@ -484,9 +483,8 @@ class MyDisplay:
             font_name, int(self.ymax * conditions_text_height), bold=0)
         txt = conditions_font.render(self.weather.summary, True, text_color)
         (rendered_txt_x, rendered_txt_y) = txt.get_size()
-        #x = self.xmax * 0.27 - (txt_x * 1.02) / 2
         x = self.xmax * (self.window_division_x + 1 ) /2 - (rendered_txt_x * 1.50 ) / 2
-        y = ( self.ymax * ( 0.25 + 0.1875) - rendered_txt_y * 1.50) / 2
+        y = ( self.ymax * y_start_position - rendered_txt_y * 1.50) / 2
         self.screen.blit(txt, (x, y))
 
     def disp_umbrella_info(self, umbrella_txt):
