@@ -288,11 +288,76 @@ class MyDisplay:
         self.window_division_x = 0.72       # screen vertical division between calendar and weather from left
         self.time_y_position = -3
         self.time_seconds_y_position = 12
-
+        self.eventsdate = [ '', '', '', '', '' ]
+        self.eventstime = [ '', '', '', '', '' ]
+        self.eventsdesc = [ '', '', '', '', '' ]
         self.last_update_check = 0
 
     def __del__(self):
         "Destructor to make sure pygame shuts down, etc."
+    
+    ####################################################################
+    def get_calendar_events( self ):
+
+        todaydate = datetime.datetime(2017,1,1,0,0)
+        datetimetmp = datetime.datetime(2017,1,1,0,0)
+
+        """Shows basic usage of the Google Calendar API.
+        Prints the start and name of the next 10 events on the user's calendar.
+        """
+        creds = None
+        # The file token.pickle stores the user's access and refresh tokens, and is
+        # created automatically when the authorization flow completes for the first
+        # time.
+        if os.path.exists('token.pickle'):
+            with open('token.pickle', 'rb') as token:
+                creds = pickle.load(token)
+        # If there are no (valid) credentials available, let the user log in.
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                flow = InstalledAppFlow.from_client_secrets_file(
+                    'credentials.json', SCOPES)
+                creds = flow.run_local_server(port=0)
+            # Save the credentials for the next run
+            with open('token.pickle', 'wb') as token:
+                pickle.dump(creds, token)
+
+        service = build('calendar', 'v3', credentials=creds)
+
+        now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+        try:
+            eventsResult = service.events().list(
+                calendarId='primary', timeMin=now, maxResults=4, singleEvents=True,
+                orderBy='startTime').execute()
+        except:
+            print("Error getting events from Google Calendar")
+            return
+        events = eventsResult.get('items', [])
+        
+        if not events:
+            print("No upcoming events found.")
+        i=0
+        todaydate = datetime.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0) 
+        for event in events:
+            start = event['start'].get('dateTime', event['start'].get('date'))
+            if len(start) > 10:
+                start = start[:start.find("+")]
+                datetimetmp = datetime.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S")
+                self.eventstime[i] = datetime.datetime.strftime(datetimetmp, "%H:%M")
+            else:
+                datetimetmp = datetime.datetime.strptime(start, "%Y-%m-%d")
+                self.eventstime[i] = ""
+            if ( datetimetmp.replace(hour=0, minute=0) == todaydate ):
+                self.eventsdate[i] = gettext('TODAY', lang)
+            elif ( datetimetmp.replace(hour=0, minute=0) == ( todaydate + datetime.timedelta(days=1))):
+                self.eventsdate[i] = gettext('TOMORROW', lang)
+            else:
+                self.eventsdate[i] = datetime.datetime.strftime(datetimetmp, "%A, %d %B").title()
+            self.eventsdesc[i] = event['summary']
+            i+=1
+        return True
 
     def get_forecast(self):
         if (time.time() - self.last_update_check) > config.DS_CHECK_INTERVAL:
