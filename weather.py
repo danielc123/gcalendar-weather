@@ -77,6 +77,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 # globals
 MODE = 'd'  # Default to weather mode.
+MINUTES2GCAL = 5 # Minutes to update G Calendar
 MOUSE_X, MOUSE_Y = 0, 0
 UNICODE_DEGREE = u'\xb0'
 
@@ -635,6 +636,7 @@ class MyDisplay:
             multiplier += 1
             self.display_subwindow(this_day, this_day_string, multiplier)
 
+        self.disp_calendar_events()
         # Update the display
         pygame.display.update()
 
@@ -705,6 +707,7 @@ class MyDisplay:
             multiplier += 1
             self.display_subwindow(this_hour, this_hour_string, multiplier)
 
+        self.disp_calendar_events()
         # Update the display
         pygame.display.update()
 
@@ -948,6 +951,7 @@ MY_DISP = MyDisplay()
 
 RUNNING = True             # Stay running while True
 SECONDS = 0                # Seconds Placeholder to pace display.
+MINUTES = MINUTES2GCAL     # Minutes to update Google calendar
 # Display timeout to automatically switch back to weather dispaly.
 NON_WEATHER_TIMEOUT = 0
 # Switch to info periodically to prevent screen burn
@@ -957,7 +961,9 @@ PERIODIC_INFO_ACTIVATION = 0
 if MY_DISP.get_forecast() is False:
     print('Error: no data from darksky.net.')
     RUNNING = False
-
+if MY_DISP.get_calendar_events() is False: 
+    print('Error: no data from Google Calendar')
+    RUNNING = False
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 while RUNNING:
@@ -1027,6 +1033,14 @@ while RUNNING:
                 print("Decoding JSON has failed", sys.exc_info()[0])
             except BaseException:
                 print("Unexpected error:", sys.exc_info()[0])
+            MINUTES -= 1
+            if int(MINUTES) == 0:
+                MINUTES = MINUTES2GCAL
+                try:
+                    MY_DISP.get_calendar_events()
+                except:
+                    print("Error while updating Google Calendar Events")
+
     # Hourly Weather Display Mode
     elif MODE == 'h':
         # Update / Refresh the display after each second.
@@ -1042,6 +1056,13 @@ while RUNNING:
                 print("Decoding JSON has failed", sys.exc_info()[0])
             except BaseException:
                 print("Unexpected error:", sys.exc_info()[0])
+            MINUTES -= 1
+            if int(MINUTES) == 0:
+                MINUTES = MINUTES2GCAL
+                try:
+                    MY_DISP.get_calendar_events()
+                except:
+                    print("Error while updating Google Calendar Events")   
     # Info Screen Display Mode
     elif MODE == 'i':
         # Pace the screen updates to once per second.
@@ -1063,6 +1084,13 @@ while RUNNING:
                 print("Decoding JSON has failed", sys.exc_info()[0])
             except BaseException:
                 print("Unexpected error:", sys.exc_info()[0])
+            MINUTES -= 1
+            if int(MINUTES) == 0:
+                MINUTES = MINUTES2GCAL
+                try:
+                    MY_DISP.get_calendar_events()
+                except:
+                    print("Error while updating Google Calendar Events")
 
     (inDaylight, dayHrs, dayMins, seconds_til_daylight,
      delta_seconds_til_dark) = daylight(MY_DISP.weather)
