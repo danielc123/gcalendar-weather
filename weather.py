@@ -551,6 +551,43 @@ class MyDisplay:
             self.xmax * x_start_position,
             self.ymax * y_start_position))
 
+    def disp_calendar_events(self):
+        font_name = "freesans"
+        #Google calendar events
+        dfont = pygame.font.SysFont( font_name, int(self.ymax*self.date_text_height*1.1), bold=0 ) # Date Font 
+        dsfont = pygame.font.SysFont( font_name, int(self.ymax*self.date_text_height*1.1), bold=0 ) # Date Font 
+        gcy = self.ymax * 0.45
+        gpy = 24    #gap on axis y, between event date/time line and event description
+        gpx = 15    #gap on axis x, between Date and time
+        tp = 4
+        lcdt = (230,230,230)
+        lctm = (255, 204, 255)
+        text_color = (255, 255, 255)
+
+        for i in range(3):
+            if ( self.eventsdate[i]==gettext('TODAY', config.LANG)):
+                lcdt = (204, 255, 204)
+            elif (self.eventsdate[i]==gettext('TOMORROW', config.LANG)):
+                lcdt = (255, 255, 204)
+            else:
+                lcdt = (230, 230, 230)
+            gedate = dfont.render(  self.eventsdate[i] , True, lcdt )
+            (gdx,gdy) = gedate.get_size()
+            self.screen.blit( gedate, (tp, gcy-gpy ) ) #event date
+            getime = dfont.render( self.eventstime[i] , True, lctm )
+            (gtx,gty) = getime.get_size()
+            self.screen.blit( getime, (tp+gdx+gpx, gcy-gpy  ) ) #event hours
+            gcy = gcy + gdy-4
+            gedesc = dsfont.render ( self.eventsdesc[i] ,  True, text_color )
+            (gdsx, gdsy) = gedesc.get_size()
+            while ( gdsx > self.xmax * self.window_division_x):
+                self.eventsdesc[i] = self.eventsdesc[i][:-1]
+                gedesc = dsfont.render ( self.eventsdesc[i] ,  True, text_color )
+                (gdsx, gdsy) = gedesc.get_size()
+            self.screen.blit( gedesc, (tp, gcy-gpy )) #event description
+            gcy = gcy + gty + 15
+
+
     def disp_weather(self):
         # Fill the screen with black
         self.screen.fill((0, 0, 0))
