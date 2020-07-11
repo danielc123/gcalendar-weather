@@ -435,14 +435,13 @@ class MyDisplay:
         txt_label = conditions_font.render(str(label), True, text_color)
         (txt_label_x, txt_label_y) = txt_label.get_size()
 
-
         txt_cond = conditions_font.render(str(cond), True, text_color)
         (txt_cond_x, txt_cond_y) = txt_cond.get_size()
         self.screen.blit(txt_label, 
-            ( x_start_position-txt_label_x - txt_cond_x - 10, self.ymax * y_start + txt_label_y + 4))
+            ( x_start_position-txt_label_x - txt_cond_x, self.ymax * y_start ))
 
         self.screen.blit(txt_cond, 
-            ( x_start_position- txt_cond_x , self.ymax * y_start + txt_label_y + 4))
+            ( x_start_position- txt_cond_x , self.ymax * y_start ))
 
 
     def display_subwindow(self, data, day, c_times):
