@@ -696,13 +696,13 @@ class MyDisplay:
             this_hour = self.weather.hourly[future_hour + 1]
             this_hour_24_int = int(datetime.datetime.fromtimestamp(
                 this_hour.time).strftime("%H"))
-            if this_hour_24_int <= 11:
-                ampm = 'a.m.'
-            else:
-                ampm = 'p.m.'
-            this_hour_12_int = int(datetime.datetime.fromtimestamp(
-                this_hour.time).strftime("%I"))
-            this_hour_string = "{} {}".format(str(this_hour_12_int), ampm)
+            #if this_hour_24_int <= 11:
+            #    ampm = 'a.m.'
+            #else:
+            #    ampm = 'p.m.'
+            #this_hour_12_int = int(datetime.datetime.fromtimestamp(
+            #    this_hour.time).strftime("%I"))
+            this_hour_string = "{} hrs".format(str(this_hour_24_int))
             multiplier += 1
             self.display_subwindow(this_hour, this_hour_string, multiplier)
 
