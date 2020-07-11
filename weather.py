@@ -601,29 +601,29 @@ class MyDisplay:
 
         try:
             wind_bearing = self.weather.windBearing
-            wind_direction = deg_to_compass(wind_bearing) + ' @ '
+            wind_direction = deg_to_compass(wind_bearing) + '@'
         except AttributeError:
             wind_direction = ''
         self.display_conditions_line(
-            'HR:', str(int(round((self.weather.humidity * 100)))) + '%',
-            False, 0)        
+            'H:', str(int(round((self.weather.humidity * 100)))) + '%',
+            False, 1.6)        
         wind_txt = wind_direction + str(
             int(round(self.weather.windSpeed))) + \
             ' ' + get_windspeed_abbreviation()
         self.display_conditions_line(
-            '', wind_txt, False, 2.4)
+            '', wind_txt, False, 2.2)
 
         # Skipping multiplier 3 (line 4)
 
-        if self.take_umbrella:
-            umbrella_txt = 'Grab your umbrella!'
-        else:
-            umbrella_txt = 'No umbrella needed today.'
-        self.disp_umbrella_info(umbrella_txt)
+        #if self.take_umbrella:
+        #    umbrella_txt = 'Grab your umbrella!'
+        #else:
+        #    umbrella_txt = 'No umbrella needed today.'
+        #self.disp_umbrella_info(umbrella_txt)
 
         # Today
         today = self.weather.daily[0]
-        today_string = "Today"
+        today_string = gettext("Today",config.LANG)
         multiplier = 0
         self.display_subwindow(today, today_string, multiplier)
 
@@ -651,44 +651,42 @@ class MyDisplay:
         self.disp_time_date(font_name, text_color)
         self.disp_current_temp(font_name, text_color)
         self.disp_summary()
-        #self.display_conditions_line(
-        #    'Feels Like:', int(round(self.weather.apparentTemperature)),
-        #    True)
 
         try:
             wind_bearing = self.weather.windBearing
-            wind_direction = deg_to_compass(wind_bearing) + ' @ '
+            wind_direction = deg_to_compass(wind_bearing) + '@'
         except AttributeError:
             wind_direction = ''
+        self.display_conditions_line(
+            'H:', str(int(round((self.weather.humidity * 100)))) + '%',
+            False, 1.6)            
         wind_txt = wind_direction + str(
             int(round(self.weather.windSpeed))) + \
             ' ' + get_windspeed_abbreviation()
         self.display_conditions_line(
-            'Wind:', wind_txt, False, 1)
+            '', wind_txt, False, 2.2)
 
-        self.display_conditions_line(
-            'Humidity:', str(int(round((self.weather.humidity * 100)))) + '%',
-            False, 2)
+
 
         # Skipping multiplier 3 (line 4)
 
-        if self.take_umbrella:
-            umbrella_txt = 'Grab your umbrella!'
-        else:
-            umbrella_txt = 'No umbrella needed today.'
-        self.disp_umbrella_info(umbrella_txt)
+        #if self.take_umbrella:
+        #    umbrella_txt = 'Grab your umbrella!'
+        #else:
+        #    umbrella_txt = 'No umbrella needed today.'
+        #self.disp_umbrella_info(umbrella_txt)
 
         # Current hour
         this_hour = self.weather.hourly[0]
         this_hour_24_int = int(datetime.datetime.fromtimestamp(
             this_hour.time).strftime("%H"))
-        if this_hour_24_int <= 11:
-            ampm = 'a.m.'
-        else:
-            ampm = 'p.m.'
-        this_hour_12_int = int(datetime.datetime.fromtimestamp(
-            this_hour.time).strftime("%I"))
-        this_hour_string = "{} {}".format(str(this_hour_12_int), ampm)
+        #if this_hour_24_int <= 11:
+        #    ampm = 'a.m.'
+        #else:
+        #    ampm = 'p.m.'
+        #this_hour_12_int = int(datetime.datetime.fromtimestamp(
+        #    this_hour.time).strftime("%I"))
+        this_hour_string = "{} hrs".format(str(this_hour_24_int))
         multiplier = 0
         self.display_subwindow(this_hour, this_hour_string, multiplier)
 
