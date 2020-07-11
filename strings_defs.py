@@ -12,18 +12,13 @@ def gettext( text, lang='en' ):
                 'Sunday':'SUN', 'Today':'TOD'        
             },
             'es':{
-                'Monday':'LUN', 'Tuesday':'MAR', 'Wednesday':u'MIÉ', 
-                'Thursday':'JUE', 'Friday':'VIE', 'Saturday':u'SÁB', 
-                'Sunday':'DOM', 'Today':'HOY', 'TODAY':'HOY', 'TOMORROW':u'MAÑANA',
-                'Windchill': u'Sens. térmica', 'Windspeed':'Vel. viento',
-                'Direction': u'Direccion', 'Barometer': u'Presión', 'Humidity':'Humedad',
-                'Sunrise': 'Salida de sol', 'Sunset': 'Puesta de sol', 'Daylight (Hrs:Min)': 'Horas de sol (hrs:min)',
-                'Sunset in (Hrs:Min)':'Puesta de sol en (hrs:min)', 'Update':'Actualizado',
-                'Sunrise in (Hrs:Min)':'Salida de sol en (hrs:min)', 'Current Cond': u'Condición actual',
-                'Outside Temp':'Temperatura exterior', 'Visibility':'Visibilidad', 
-                'Showers':'Lluvias',
-                'Mostly Cloudy':'Mayormente Nublado', 'Partly Cloudy': 'Parcialmente Nublado', 'Cloudy':'Nublado',
-                'Windy':'Ventoso', 'Sunny':'Soleado', 'Fair':'Bueno'
+                'lunes':'LUN', 'martes':'MAR', 'miercoles':u'MIÉ', 
+                'jueves':'JUE', 'viernes':'VIE', 'sabado':u'SÁB', 
+                'domingo':'DOM', 'Today':'HOY', 'TODAY':'HOY', 'TOMORROW':u'MAÑANA',
+                'today':'hoy', 'tonight':'esta noche' ,'tomorrow':u'mañana',
+                'Sunrise':'Amanecer', 'Sunset':'Atardecer','Daylight':'Horas de sol',
+                'Sunset in':'Puesta de sol en', 'Sunrise in':'Salida del sol en',
+                'on':'el'
             }
         }
         return strings[lang][text]
