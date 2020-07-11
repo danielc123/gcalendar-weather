@@ -421,11 +421,8 @@ class MyDisplay:
     def display_conditions_line(self, label, cond, is_temp, multiplier=None):
         y_start_position = 0     #start position
         line_spacing_gap = 0.065    #line spacing
-        conditions_text_height = 0.05
-        degree_symbol_height = 0.03
-        degree_symbol_y_offset = 0.001
+        conditions_text_height = 0.04
         x_start_position = self.xmax 
-        second_column_x_start_position = 0.69
         text_color = (255, 255, 255)
         font_name = "freesans"
 
