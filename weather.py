@@ -374,19 +374,19 @@ class MyDisplay:
                     self.weather.daily[0].sunsetTime)
                 if datetime.datetime.now() < sunset_today:
                     index = 0
-                    sr_suffix = 'today'
-                    ss_suffix = 'tonight'
+                    sr_suffix = gettext('today', config.LANG)
+                    ss_suffix = gettext('tonight', config.LANG)
                 else:
                     index = 1
-                    sr_suffix = 'tomorrow'
-                    ss_suffix = 'tomorrow'
+                    sr_suffix = gettext('tomorrow', config.LANG)
+                    ss_suffix = gettext('tomorrow', config.LANG)
 
                 self.sunrise = self.weather.daily[index].sunriseTime
                 self.sunrise_string = datetime.datetime.fromtimestamp(
-                    self.sunrise).strftime("%I:%M %p {}").format(sr_suffix)
+                    self.sunrise).strftime("%H:%M {}").format(sr_suffix)
                 self.sunset = self.weather.daily[index].sunsetTime
                 self.sunset_string = datetime.datetime.fromtimestamp(
-                    self.sunset).strftime("%I:%M %p {}").format(ss_suffix)
+                    self.sunset).strftime("%H:%M {}").format(ss_suffix)
 
                 # start with saying we don't need an umbrella
                 self.take_umbrella = False
@@ -631,7 +631,7 @@ class MyDisplay:
         for future_day in range(3):
             this_day = self.weather.daily[future_day + 1]
             this_day_no = datetime.datetime.fromtimestamp(this_day.time)
-            this_day_string = this_day_no.strftime("%A")
+            this_day_string = gettext(this_day_no.strftime("%A"), config.LANG)
             multiplier += 1
             self.display_subwindow(this_day, this_day_string, multiplier)
 
@@ -854,21 +854,23 @@ class MyDisplay:
         self.sPrint("A weather rock powered by Dark Sky", date_font,
                     self.xmax * 0.05, 5, text_color)
 
-        self.sPrint("Sunrise: %s" % self.sunrise_string,
+        self.sPrint("%s: %s" % (gettext("Sunrise", config.LANG), self.sunrise_string),
                     date_font, self.xmax * 0.05, 6, text_color)
 
-        self.sPrint("Sunset:  %s" % self.sunset_string,
+        self.sPrint("%s:  %s" % (gettext("Sunset", config.LANG), self.sunset_string),
                     date_font, self.xmax * 0.05, 7, text_color)
 
-        text = "Daylight: %d hrs %02d min" % (day_hrs, day_mins)
+        text = "%s: %d hrs %02d min" % (gettext("Daylight", config.LANG), day_hrs, day_mins)
         self.sPrint(text, date_font, self.xmax * 0.05, 8, text_color)
 
         # leaving row 7 blank
 
         if in_daylight:
-            text = "Sunset in %d hrs %02d min" % stot(delta_seconds_til_dark)
+            text = "%s %d hrs %02d min" % (gettext("Sunset in", config.LANG), 
+                stot(delta_seconds_til_dark)[0], stot(delta_seconds_til_dark)[1])
         else:
-            text = "Sunrise in %d hrs %02d min" % stot(seconds_til_daylight)
+            text = "%s %d hrs %02d min" % (gettext("Sunrise in", config.LANG), 
+                stot(seconds_til_daylight)[0], stot(seconds_til_daylight)[1])
         self.sPrint(text, date_font, self.xmax * 0.05, 9, text_color)
 
         # leaving row 9 blank
@@ -876,9 +878,10 @@ class MyDisplay:
         text = "Weather checked at"
         self.sPrint(text, date_font, self.xmax * 0.05, 10, text_color)
 
-        text = "    %s" % time.strftime(
-            "%H:%M:%S %Z on %a. %d %b %Y ",
-            time.localtime(self.last_update_check))
+        text = "    %s %s %s" % (time.strftime( "%H:%M:%S %Z",
+            time.localtime(self.last_update_check)),
+            gettext("on",config.LANG), time.strftime( "%a. %d %b %Y ",
+            time.localtime(self.last_update_check)))
         self.sPrint(text, date_font, self.xmax * 0.05, 11, text_color)
 
         # Update the display
