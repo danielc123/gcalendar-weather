@@ -12,8 +12,8 @@ def gettext( text, lang='en' ):
                 'Sunday':'SUN', 'Today':'TOD'        
             },
             'es':{
-                'lunes':'LUN', 'martes':'MAR', 'miercoles':u'MIÉ', 
-                'jueves':'JUE', 'viernes':'VIE', 'sabado':u'SÁB', 
+                'lunes':'LUN', 'martes':'MAR', 'mi\xe9rcoles':u'MIÉ', 
+                'jueves':'JUE', 'viernes':'VIE', 's\xe1bado':u'SÁB', 
                 'domingo':'DOM', 'Today':'HOY', 'TODAY':'HOY', 'TOMORROW':u'MAÑANA',
                 'today':'hoy', 'tonight':'esta noche' ,'tomorrow':u'mañana',
                 'Sunrise':'Amanecer', 'Sunset':'Atardecer','Daylight':'Horas de sol',
