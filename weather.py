@@ -1000,7 +1000,7 @@ while RUNNING:
         PERIODIC_INFO_ACTIVATION = 0
         NON_WEATHER_TIMEOUT += 1
         # Five minute timeout at 100ms loop rate.
-        if NON_WEATHER_TIMEOUT > 3000:
+        if NON_WEATHER_TIMEOUT > 200:
             MODE = 'd'
             syslog.syslog("Switched to weather mode")
     else:
