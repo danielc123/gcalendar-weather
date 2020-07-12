@@ -70,9 +70,9 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 # setup GPIO pin
-#import LPi.GPIO as GPIO
-#GPIO.setmode( GPIO.BOARD )
-#GPIO.setup( 6, GPIO.IN )    # Next 
+import LPi.GPIO as GPIO
+GPIO.setmode( GPIO.BOARD )
+GPIO.setup( 6, GPIO.IN )    # Next 
 ##GPIO.setup( 17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN )    # Shutdown
 
 # globals
@@ -955,6 +955,8 @@ MINUTES = MINUTES2GCAL     # Minutes to update Google calendar
 NON_WEATHER_TIMEOUT = 0
 # Switch to info periodically to prevent screen burn
 PERIODIC_INFO_ACTIVATION = 0
+# PUsh Button counter
+PUSH_BTN_CNT = 0
 
 # Loads data from darksky.net into class variables.
 if MY_DISP.get_forecast() is False:
@@ -994,6 +996,15 @@ while RUNNING:
                 MODE = 'h'
                 NON_WEATHER_TIMEOUT = 0
                 PERIODIC_INFO_ACTIVATION = 0
+
+    if GPIO.input (6):
+        PUSH_BTN_CNT += 1
+        if PUSH_BTN_CNT >= 5:
+            PUSH_BTN_CNT = 0
+            if (MODE == 'd'): MODE = 'h'
+            elif (MODE == 'h'): MODE = 'i'
+            elif (MODE == 'i'): MODE = 'd'
+            print ("Button event!")
 
     # Automatically switch back to weather display after a couple minutes.
     if MODE not in ('d', 'h'):
