@@ -300,8 +300,8 @@ class MyDisplay:
     ####################################################################
     def get_calendar_events( self ):
 
-        todaydate = datetime.datetime(2017,1,1,0,0)
-        datetimetmp = datetime.datetime(2017,1,1,0,0)
+        todaydate = datetime.datetime(2020,1,1,0,0)
+        datetimetmp = datetime.datetime(2020,1,1,0,0)
 
         """Shows basic usage of the Google Calendar API.
         Prints the start and name of the next 10 events on the user's calendar.
@@ -351,9 +351,9 @@ class MyDisplay:
                 datetimetmp = datetime.datetime.strptime(start, "%Y-%m-%d")
                 self.eventstime[i] = ""
             if ( datetimetmp.replace(hour=0, minute=0) == todaydate ):
-                self.eventsdate[i] = gettext('TODAY', lang)
+                self.eventsdate[i] = gettext('TODAY', config.LANG)
             elif ( datetimetmp.replace(hour=0, minute=0) == ( todaydate + datetime.timedelta(days=1))):
-                self.eventsdate[i] = gettext('TOMORROW', lang)
+                self.eventsdate[i] = gettext('TOMORROW', config.LANG)
             else:
                 self.eventsdate[i] = datetime.datetime.strftime(datetimetmp, "%A, %d %B").title()
             self.eventsdesc[i] = event['summary']
