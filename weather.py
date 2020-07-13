@@ -950,7 +950,7 @@ MY_DISP = MyDisplay()
 
 RUNNING = True             # Stay running while True
 SECONDS = 0                # Seconds Placeholder to pace display.
-MINUTES = MINUTES2GCAL     # Minutes to update Google calendar
+MINUTES = 0             # Minutes to update Google calendar
 # Display timeout to automatically switch back to weather dispaly.
 NON_WEATHER_TIMEOUT = 0
 # Switch to info periodically to prevent screen burn
@@ -1043,9 +1043,9 @@ while RUNNING:
                 print("Decoding JSON has failed", sys.exc_info()[0])
             except BaseException:
                 print("Unexpected error:", sys.exc_info()[0])
-            MINUTES -= 1
-            if int(MINUTES) == 0:
-                MINUTES = MINUTES2GCAL
+            MINUTES += 1
+            if MINUTES >= MINUTES2GCAL:
+                MINUTES = 0
                 try:
                     MY_DISP.get_calendar_events()
                 except:
@@ -1066,9 +1066,9 @@ while RUNNING:
                 print("Decoding JSON has failed", sys.exc_info()[0])
             except BaseException:
                 print("Unexpected error:", sys.exc_info()[0])
-            MINUTES -= 1
-            if int(MINUTES) == 0:
-                MINUTES = MINUTES2GCAL
+            MINUTES += 1
+            if MINUTES >= MINUTES2GCAL:
+                MINUTES = 0
                 try:
                     MY_DISP.get_calendar_events()
                 except:
@@ -1094,9 +1094,9 @@ while RUNNING:
                 print("Decoding JSON has failed", sys.exc_info()[0])
             except BaseException:
                 print("Unexpected error:", sys.exc_info()[0])
-            MINUTES -= 1
-            if int(MINUTES) == 0:
-                MINUTES = MINUTES2GCAL
+            MINUTES += 1
+            if MINUTES >= MINUTES2GCAL:
+                MINUTES = 0
                 try:
                     MY_DISP.get_calendar_events()
                 except:
